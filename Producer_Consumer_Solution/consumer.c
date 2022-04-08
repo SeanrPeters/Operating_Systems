@@ -16,6 +16,7 @@ int main()
      
         for(int i = 0; i < 5; i++) // outputs five index's values assosiated with table
                 {
+                        // makes sure that the critical section is not already occupied 
                 sem_wait(&s -> isFull);
                 sem_wait(&s -> sem);
 
@@ -26,7 +27,7 @@ int main()
 
                 s -> buf[s -> con] = -1;
                 s -> con = (s -> con +1 ) % 2;
-
+// sets critical section to empty
                 sem_post(&s -> isEmpty);
                 sem_post(&s -> sem);
                 }
