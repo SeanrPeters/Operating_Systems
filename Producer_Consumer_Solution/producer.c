@@ -1,3 +1,4 @@
+//sean peters 4/6/2022
 
 #include "data.h"
 #include <iostream>
@@ -16,15 +17,16 @@ int main()
                  shm_unlink("/sharedVal");
                  return -1;
                 }
-
+//makes sure it is not empty or full andis not sem
          if(sem_init(&s->isEmpty, 1, 2)||sem_init(&s->isFull, 1, 0)||sem_init(&s->sem, 1, 1) == -1)
                 {
                 shm_unlink("/sharedVal"); //clears shared mem obj
                 return -1;
                 }
 
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 5; i++) // outputs the values assosiated with the indexs of the buffer 
                  {
+                 // waits for  the critical section to be empty
                 sem_wait(&s->isEmpty);
                 sem_wait(&s->sem);
 
@@ -34,7 +36,7 @@ int main()
                 std::cout << " Table[" << s->pro <<"] has " << s->buf[s->pro]<< " now" << std::endl;
 
                 s -> pro = (s -> pro +1 ) % 2;
-
+// sets critical section to full 
                 sem_post(&s -> sem);
                 sem_post(&s -> isFull);
     }
