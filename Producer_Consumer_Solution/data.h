@@ -9,9 +9,9 @@ struct shm
         sem_t sem;
         sem_t isEmpty;
 
-        int buf[2];
+        int buf[2]; // buffer initialized to only 2 values max
 
-        int pro;
-        int con;
+        int pro; // an iterator for the producer buffer
+        int con; // an iteratior for the consumer buffer
 };
 #endif
