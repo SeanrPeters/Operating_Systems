@@ -1,3 +1,4 @@
+//sean peters 4/6/2022
 include "data.h"
 #include <iostream>
 #include <sys/stat.h>
@@ -7,13 +8,13 @@ include "data.h"
 
 int main()
 {
-        sleep(.1000);
+        sleep(.1000); // makes it output fast while also introducing pauses
         int shared = shm_open("/sharedVal", O_RDWR, 0);
         shm_unlink("/sharedVal");
         struct shm *s = (struct shm *)mmap(NULL, sizeof(*s), PROT_READ | PROT_WRITE, MAP_SHA$
 
      
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 5; i++) // outputs five index's values assosiated with table
                 {
                 sem_wait(&s -> isFull);
                 sem_wait(&s -> sem);
